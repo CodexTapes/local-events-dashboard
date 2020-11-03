@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+    frontend:
+      build:
+        context: ./events-frontend
+        dockerfile: Dockerfile
+      container_name: local_events_client
+      restart: unless-stopped
+      env_file: .env
+      environment:
+      - 
+      ports:
+          - "8080:8080"
+      networks: 
+          - local_events_net
+    
+    django:
+     build:
+        context: ./django-server
+        dockerfile: Dockerfile
+     container_name: django_backend
+     restart: unless-stoppped
+     env_file: .env
+     environment:
+      - 
+     networks:
+       - local_events_net 
+
+networks: 
+  local_events_net:
+    driver: bridge
+ 
